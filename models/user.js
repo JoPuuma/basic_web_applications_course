@@ -92,15 +92,23 @@ const userSchema = new Schema({
             if (!password || password.length === 0) return password;
             // transparently encrypt password when setting it using:
             // setter must be synchronous or errors will happen
-            // TODO: hash password here with bcrypt, use length of 10,
-            return //TODO: here;
+            const saltRounds = 10;
+            return bcrypt.hashSync(password, saltRounds);
         }
     },
-    //TODO: add role, trim, lowercase, and it should enumerate possible schemaDefults.role.values, and default to defaultValues
+    role: {
+        type: String,
+        enum: schemaDefaults.role.values,
+        default: schemaDefaults.role.defaultValue,
+        required: true,
+        trim: true,
+        lowercase: true
+    }
 });
 
 userSchema.virtual('isAdmin').get(function() {
     // eslint-disable-next-line babel/no-invalid-this
+    return this.role === 'admin';
     //TODO: add the admin check for the role of this object
     // the helper function should return either true of false
 });
