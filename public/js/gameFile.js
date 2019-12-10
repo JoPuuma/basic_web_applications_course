@@ -40,42 +40,46 @@ function destroyDoor(door) {
 function getGameStarter(question){
   const createDoor = getDoorCreator();
   let counter = 0;
+  console.log('doors created');
 
   return function() {
     const intervalId = setInterval(function () {
-      if(false){
+      if(counter >= 15){
         clearInterval(intervalId);
         return;
       };
       let roundDoors = [];
 
-      for(i = 0; i < 3; i++){
+      for(let i = 0; i < 3; i++){
         const doorData = question.options[i];
         roundDoors.push(createDoor(doorData));
       };
+      counter += 1;
+      console.log('drop now');
       dropDoors(roundDoors);
     }, 5000);
   };
 }
 
 function dropDoors(roundDoors){
-  const xPos = 100;
-  let yPos = 30;
-  doors = shuffle(roundDoors);
-  for(i = 1; i <= 3; i++){
-    doors[i-1].style.left = `${xPos * i}px`;
-    doors[i-1].style.left = `${yPos}px`;
+
+  const xPos = 200;
+  let yPos = 10;
+  let doors = shuffle(roundDoors);
+  for(let i = 0; i <= 2; i++){
+    doors[i].style.left = `${xPos * i}px`;
+    doors[i].style.top = `${yPos}px`;
   };
 
   moveId = setInterval(function() {
-    for(i = 0; i <= 2; i++){
-      doors[i].style.left = `${yPos}px`;
+    for(let i = 0; i <= 2; i++){
+      doors[i].style.top = `${yPos}px`;
       doors[i].style.display = 'block';
     };
       yPos += 1;
 
-      if (yPos > 600 || bubble.style.display === 'none') {
-        for(i = 0; i <= 2; i++){
+      if (yPos > 650 || bubble.style.display === 'none') {
+        for(let i = 0; i <= 2; i++){
           destroyDoor(doors[i]);
         };
       }
@@ -174,7 +178,7 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
         if (submitOnGameStop) return;
 
         evt.preventDefault();
-        document.querySelectorAll('.door').forEach((bubble) => { destroyDoor(door) });
+        document.querySelectorAll('.door').forEach((door) => { destroyDoor(door) });
         playNextRound(questions, currentQuestion + 1);
         return false;
     }
