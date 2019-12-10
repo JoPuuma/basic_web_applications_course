@@ -130,12 +130,15 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
     const question = questions[currentQuestion];
     const doorClickHandler = getDoorClickHandler(question, currentQuestion);
 
+    const object = document.getElementById('object');
     const gameForm = document.getElementById('game-form');
     const startGame = getGameStarter(question);
     const startButton = document.getElementById('start-game');
     const submitButton = document.getElementById('grade');
     const doorContainer = document.getElementById('doors');
     const questionTitle = document.getElementById('question-title');
+
+    document.onmousemove = handleMouseMove;
 
     // Activate and unhide start button
     startButton.disabled = false;
@@ -199,4 +202,19 @@ function handleError(error) {
     alertContainer.classList.add('alert', 'alert-danger');
     alertContainer.classList.remove('hidden');
     alertContainer.textContent = 'The loading of the exercise failed!';
+}
+
+function handleMouseMove(event) {
+    // Move the object
+    const divRect = document.getElementById('doors').getBoundingClientRect();
+    var object = document.getElementById('object');
+    const objectRect = object.getBoundingClientRect();
+
+    var xPos = Math.ceil(event.pageX - divRect.left - objectRect.width/2);
+    if (xPos < 0) {
+        xPos = 0;
+    } else if (xPos > divRect.width - objectRect.width) {
+        xPos = Math.ceil(divRect.width - objectRect.width);
+    }
+    object.style.left = xPos + 'px';
 }
