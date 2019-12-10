@@ -41,8 +41,29 @@
     margin: 15px auto;
 }
 
+#doors {
+    width: 620px;
+    min-height: 700px;
+    padding: 10px;
+    position: relative;
+    border: 2px solid black;
+    margin: 15px auto;
+}
+
 .bubble {
     color: black;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 5px;
+    position: absolute;
+    max-width: 185px;
+}
+.door {
+    background: brown;
     font-size: 20px;
     font-weight: bold;
     text-align: center;

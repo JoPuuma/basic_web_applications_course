@@ -43,18 +43,44 @@ function getGameStarter(question){
 
   return function() {
     const intervalId = setInterval(function () {
-      if(counter >= question){
+      if(false){
         clearInterval(intervalId);
         return;
-      }
+      };
       let roundDoors = [];
 
-      for(i = 0, i < 3, i++){
+      for(i = 0; i < 3; i++){
         const doorData = question.options[i];
         roundDoors.push(createDoor(doorData));
-      }
+      };
+      dropDoors(roundDoors);
     }, 5000);
-  }
+  };
+}
+
+function dropDoors(roundDoors){
+  const xPos = 100;
+  let yPos = 30;
+  doors = shuffle(roundDoors);
+  for(i = 1; i <= 3; i++){
+    doors[i-1].style.left = `${xPos * i}px`;
+    doors[i-1].style.left = `${yPos}px`;
+  };
+
+  moveId = setInterval(function() {
+    for(i = 0; i <= 2; i++){
+      doors[i].style.left = `${yPos}px`;
+      doors[i].style.display = 'block';
+    };
+      yPos += 1;
+
+      if (yPos > 600 || bubble.style.display === 'none') {
+        for(i = 0; i <= 2; i++){
+          destroyDoor(doors[i]);
+        };
+      }
+  }, 20);
+
 }
 
 function getDoorCreator(){
@@ -73,6 +99,21 @@ function getDoorCreator(){
     doors.appendChild(doorDiv);
     return doorDiv;
   };
+}
+
+/**
+ * Shuffles array in place.
+ * @param {Array} a items An array containing the items.
+ */
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
 }
 
 /**
