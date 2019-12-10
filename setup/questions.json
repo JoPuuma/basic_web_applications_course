@@ -95,6 +95,67 @@
             },
 
         ]
+    },
+    {
+        "title": "Find x",
+        "submissions": 1,
+        "questions": [
+            {
+                "title": "x + 2 = 0",
+                "maxPoints": 1,
+                "options": [
+                    {
+                        "option": "x = -2",
+                        "correctness": true
+                    },
+                    {
+                        "option": "x = 2",
+                        "correctness": false
+                    },
+                    {
+                        "option": "x = 0",
+                        "correctness": false
+                    }
+                ]
+            },
+            {
+                "title": "(x - 1)(x + 2) = 0",
+                "maxPoints": 1,
+                "options": [
+                    {
+                        "option": "x = 1 or x = 2",
+                        "correctness": false
+                    },
+                    {
+                        "option": "x = 1 or x = -2",
+                        "correctness": true
+                    },
+                    {
+                        "option": "x = -1 or x = -2",
+                        "correctness": false
+                    }
+                ]
+            },
+            {
+                "title": "2x = 2",
+                "maxPoints": 1,
+                "options": [
+                    {
+                        "option": "x = 2",
+                        "correctness": false
+                    },
+                    {
+                        "option": "x = 1",
+                        "correctness": true
+                    },
+                    {
+                        "option": "x = 0",
+                        "correctness": false
+                    }
+                ]
+            }
+  
+        ]
     }
 
 ]
