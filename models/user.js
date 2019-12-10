@@ -127,19 +127,11 @@ userSchema.virtual('isStudent').get(function() {
 });
 
 userSchema.statics.getAvailableRoles = function() {
-    // FIXME: Do not hard code! Construct this automatically
-    return [{
-        name: 'Student',
-        value: 'student'
-    },
-    {
-        name: 'Teacher',
-        value: 'teacher'
-    },
-    {
-        name: 'Admin',
-        value: 'admin'
-    }];
+    var roles = [];
+    for (var role of schemaDefaults.role.values) {
+        roles.push({name: role[0].toUpperCase()+role.slice(1), value: role});
+    }
+    return roles;
 };
 
 userSchema.statics.validateRole = function(data) {

@@ -8,10 +8,15 @@ module.exports = async userConfig => {
         return "Admin not created: at least one admin user already found in database.";
     }
 
-    // FIXME: Fails when a non-admin user with same email already exists in the database
+    const user = await User.findOne({email: userConfig.email}).exec();
+    if (user) {
+        user.role = "admin";
+        await user.save();
+        return "Changed role to admin: user with same email already found in database";
+    }
 
-    const user = new User(userConfig);
-    user.role = "admin";
-    await user.save();
+    const new_user = new User(userConfig);
+    new_user.role = "admin";
+    await new_user.save();
     return "Admin user successfully created";
 };
