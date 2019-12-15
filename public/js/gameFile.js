@@ -13,6 +13,10 @@ async function loadGameData() {
     }
 }
 
+const startButton = document.getElementById('start-game');
+const submitButton = document.getElementById('grade');
+
+
 /**
  * Play next round of game
  * @param {Array} questions array of game questions
@@ -44,7 +48,7 @@ function getGameStarter(question){
 
   return function() {
     const intervalId = setInterval(function () {
-      if(counter >= 15){
+      if(counter >= 1){
         clearInterval(intervalId);
         return;
       };
@@ -57,7 +61,7 @@ function getGameStarter(question){
       counter += 1;
       console.log('drop now');
       dropDoors(roundDoors);
-    }, 5000);
+    }, 1000);
   };
 }
 
@@ -71,17 +75,20 @@ function dropDoors(roundDoors){
     doors[i].style.top = `${yPos}px`;
   };
 
-  moveId = setInterval(function() {
+  let moveId = setInterval(function() {
     for(let i = 0; i <= 2; i++){
       doors[i].style.top = `${yPos}px`;
       doors[i].style.display = 'block';
     };
       yPos += 1;
 
-      if (yPos > 650 || bubble.style.display === 'none') {
+      if (yPos > 650) {
         for(let i = 0; i <= 2; i++){
           destroyDoor(doors[i]);
         };
+        clearInterval(moveId);
+        submitButton.click();
+        startButton.click();
       }
   }, 20);
 
@@ -99,7 +106,7 @@ function getDoorCreator(){
 
     // hidden by default
     doorDiv.style.display = 'none';
-    doorDiv.innerText = doorData.text;
+    doorDiv.innerText = doorData.option;
     doors.appendChild(doorDiv);
     return doorDiv;
   };
@@ -137,8 +144,7 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
     const object = document.getElementById('object');
     const gameForm = document.getElementById('game-form');
     const startGame = getGameStarter(question);
-    const startButton = document.getElementById('start-game');
-    const submitButton = document.getElementById('grade');
+
     const doorContainer = document.getElementById('doors');
     const questionTitle = document.getElementById('question-title');
 
@@ -158,9 +164,9 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
     questionTitle.classList.remove('hidden');
 
     startButton.onclick = function (evt) {
-        // Activate and unhide submit button
+
+        // Activate submit button
         submitButton.disabled = false;
-        submitButton.classList.remove('hidden');
 
         // Disable and hide start button
         startButton.disabled = true;
