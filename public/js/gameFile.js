@@ -38,36 +38,31 @@ function playNextRound(questions, currentRound = 0) {
 function destroyDoor(door) {
     clearInterval(door.dataset.moveId);
     door.style.display = 'none';
-    door.parentNode.removeChild(door);
+    //door.parentNode.removeChild(door);
+    door.remove();
 }
 
 function getGameStarter(question){
   const createDoor = getDoorCreator();
   let counter = 0;
-  console.log('doors created');
 
-  return function() {
-    const intervalId = setInterval(function () {
-      if(counter >= 1){
-        clearInterval(intervalId);
-        return;
-      };
+  return function(){
+    setTimeout(function(){
       let roundDoors = [];
 
       for(let i = 0; i < 3; i++){
         const doorData = question.options[i];
         roundDoors.push(createDoor(doorData));
       };
-      counter += 1;
-      console.log('drop now');
       dropDoors(roundDoors);
-    }, 1000);
-  };
+    },2000);
+  }
 }
 
 function dropDoors(roundDoors){
+  const doorsElem = document.getElementById('doors').getBoundingClientRect();
+  const xPos = doorsElem.width/3;
 
-  const xPos = 200;
   let yPos = 10;
   let doors = shuffle(roundDoors);
   for(let i = 0; i <= 2; i++){
@@ -82,8 +77,10 @@ function dropDoors(roundDoors){
     };
       yPos += 1;
 
-      if (yPos > 650) {
+      if (yPos > 440) {
+        console.log("Destroy");
         for(let i = 0; i <= 2; i++){
+          console.log(doors[i]);
           destroyDoor(doors[i]);
         };
         clearInterval(moveId);
@@ -137,6 +134,7 @@ function getDoorClickHandler(question, currentQuestion){
  * @param {boolean} submitOnGameStop whether to submit the form on game stoppage or not
  * @returns {void}
  */
+
 function registerEventHandlers(questions, currentQuestion, submitOnGameStop = false) {
     const question = questions[currentQuestion];
     const doorClickHandler = getDoorClickHandler(question, currentQuestion);
