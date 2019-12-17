@@ -83,9 +83,11 @@ function dropDoors(roundDoors){
           console.log(doors[i]);
           destroyDoor(doors[i]);
         };
+        getDoorClickHandler(doors);
         clearInterval(moveId);
         submitButton.click();
         startButton.click();
+
       }
   }, 20);
 
@@ -124,7 +126,37 @@ function shuffle(a) {
     return a;
 }
 
-function getDoorClickHandler(question, currentQuestion){
+function getDoorClickHandler(doors){
+
+  const correctCounter = document.getElementById('correct');
+  const wrongCounter = document.getElementById('wrong');
+
+
+  var pos = parseInt(document.getElementById('object').style.left);
+
+  const doorsElem = document.getElementById('doors').getBoundingClientRect();
+  const xPos = doorsElem.width/3;
+
+
+  if ( pos < xPos) {
+    let door = doors[0];
+    console.log(doors.dataset.correct);
+    if (door.correctness == 'true') {
+      console.log('1');
+    }
+    else if (door.correctness == 'false') {
+      console.log('2');
+    }
+  }
+  else if (xPos <= pos && pos <= xPos *2) {
+
+  }
+  else if (pos > xPos *2) {
+
+  }
+
+
+
 
 }
 /**
@@ -137,7 +169,7 @@ function getDoorClickHandler(question, currentQuestion){
 
 function registerEventHandlers(questions, currentQuestion, submitOnGameStop = false) {
     const question = questions[currentQuestion];
-    const doorClickHandler = getDoorClickHandler(question, currentQuestion);
+    //const doorClickHandler = getDoorClickHandler();
 
     const object = document.getElementById('object');
     const gameForm = document.getElementById('game-form');
@@ -173,7 +205,7 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
 
         // unhide bubbleContainer and start listening clicks
         doorContainer.classList.remove('hidden');
-        doorContainer.onclick = doorClickHandler;
+        //doorContainer.onclick = doorClickHandler;
 
         startGame();
     };
