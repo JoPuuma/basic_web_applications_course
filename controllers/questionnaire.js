@@ -19,8 +19,27 @@ module.exports = {
         });
     },
 
-    create(request, response) {},
-    processCreate(request, response) {},
+    create(request, response) {
+        response.render('questionnaire/add_questionnaire', {
+            csrfToken: request.csrfToken()
+        });
+    },
+
+    processCreate(request, response) {
+        const {error} = Questionnaire.validateQuestionnaire(request.body);
+        if (!error) {
+            const new_questionnaire = new Questionnaire();
+            new_questionnaire.title = request.body.title;
+            new_questionnaire.submissions = request.body.submissions;
+        } else {
+            return response.render('questionnaire/add_questionnaire', {
+                errors: error
+            });
+        }
+
+        response.redirect('/questionnaires');
+    },
+
     update(request, response) {},
     processUpdate(request, response) {},
     delete(request, response) {},
