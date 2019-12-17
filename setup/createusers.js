@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
 module.exports = async userConfig => {
-    const User = require("../models/user");
-    const admin = await User.findOne({ role: "admin" }).exec();
+    const User = require('../models/user');
+    const admin = await User.findOne({ role: 'admin' }).exec();
 
     if (admin) {
-        return "Admin not created: at least one admin user already found in database.";
+        return 'Admin not created: at least one admin user already found in database.';
     }
 
     const user = await User.findOne({email: userConfig.email}).exec();
