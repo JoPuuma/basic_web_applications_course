@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">{{this.title}}</h5>
+    </div>
+    <div class="card-footer">
+        {{#if @root.isTeacher}}
+        <a class="btn btn-primary" href="/questionnaires/delete/{{this.id}}">Remove</a>
+        <a class="btn btn-primary" href="/questionnaires/me/edit">Edit Questions</a>
+        {{/if}}
+    </div>
+</div>

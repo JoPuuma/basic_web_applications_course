@@ -19,10 +19,6 @@ module.exports = {
                 response.sendStatus(404);
             }
         });
-
-        // Questionnaire.exec((err, data) => {
-        //     response.json(data.toJSON()[request.params.id]);
-        // });
     },
 
     /**
