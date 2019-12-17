@@ -107,6 +107,10 @@
     display: none;
 }
 
+.correct {
+    font-weight: bold;
+}
+
 textarea {
     resize: none;
 }

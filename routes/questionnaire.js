@@ -9,16 +9,17 @@ const router = express.Router();
 const QuestionnaireController = require('../controllers/questionnaire');
 
 router.use(auth.ensureTeacher);
+router.use(csrfProtection);
 
 // View documents
 router.get('/', csrfProtection, QuestionnaireController.list);
 router.get('/:id([a-f0-9]{24})', QuestionnaireController.show);
 
-// Create documents
+// Create a questionnaire
 router.get('/new', QuestionnaireController.create);
 router.post('/new', QuestionnaireController.processCreate);
 
-// Update documents
+// Update a questionnaire
 router.get('/edit/:id([a-f0-9]{24})', QuestionnaireController.update);
 router.post('/edit/:id([a-f0-9]{24})', QuestionnaireController.processUpdate);
 
