@@ -6,13 +6,9 @@ async function loadGameData() {
     const data_uri = `/game/data/${document.location.pathname.split('/').pop()}`;
     try {
         const response = await fetch(data_uri);
-        console.log("Got questions");
         const gameData = await handleResponse(response);
-        console.log("Handled questions");
         playNextRound(gameData.questions);
-        console.log("Round played");
     } catch (error) {
-        console.log("error");
         handleError(error + " " + data_uri);
     }
 }
@@ -24,11 +20,9 @@ async function loadGameData() {
  * @returns {void}
  */
 function playNextRound(questions, currentRound = 0) {
-    console.log("Starting round");
     if (!Array.isArray(questions)) throw new Error('Questions is not an array');
     if (currentRound >= questions.length) throw new Error('No more questions!');
     const isLastRound = currentRound + 1 >= questions.length;
-    console.log("Registering eventhandlers");
     registerEventHandlers(questions, currentRound, isLastRound);
 }
 
@@ -238,12 +232,10 @@ async function handleResponse(response) {
             statusText: response.statusText
         });
     }
-    console.log("Questions handled succesfully");
     return await response.json();
 }
 
 function handleError(error) {
-    console.log(error);
     const alertContainer = document.getElementById('alert');
     alertContainer.classList.add('alert', 'alert-danger');
     alertContainer.classList.remove('hidden');

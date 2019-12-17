@@ -11,7 +11,7 @@ const Questionnaire = require("../models/questionnaire");
 
 module.exports = async function() {
     const rawData = fs.readFileSync(
-        path.resolve(__dirname, "./game.questionnaire.json")
+        path.resolve(__dirname, "./questions.json")
     );
     const data = JSON.parse(rawData);
 

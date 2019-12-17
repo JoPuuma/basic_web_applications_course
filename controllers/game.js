@@ -1,12 +1,19 @@
 'use strict';
 
 const Game = require('../models/hello');  // TODO: Change model to game model
+const Questionnaire = require("../models/questionnaire");
 
 module.exports = {
+
+    /**
+     * Returns questions as JSON
+     * @param {Object} request is express request object
+     * @param {Object} response is express response object
+     */
     getQuestions(request, response) {
-        // TODO: Use model
-        const data = require('../setup/game.questionnaire');
-        response.json(data[1]);
+        Questionnaire.findOne({title: "Derivate"}, (err, data) => {
+            response.json(data.toJSON());
+        });
     },
 
     /**
