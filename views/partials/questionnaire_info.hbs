@@ -3,9 +3,11 @@
         <h5 class="card-title">{{this.title}}</h5>
     </div>
     <div class="card-footer">
-        {{#if @root.isTeacher}}
+        {{#if (and @root.isTeacher (eq @root.path "/questionnaires"))}}
         <a class="btn btn-primary" href="/questionnaires/delete/{{this.id}}">Remove</a>
-        <a class="btn btn-primary" href="/questionnaires/me/edit">Edit Questions</a>
+        <a class="btn btn-primary" href="/questionnaires/me/edit">Edit questions</a>
+        {{else}}
+        <a class="btn btn-primary" href="/game/{{this.id}}">Start game</a>
         {{/if}}
     </div>
 </div>
