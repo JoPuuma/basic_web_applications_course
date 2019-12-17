@@ -61,6 +61,7 @@ function getGameStarter(question){
 
 function dropDoors(roundDoors){
   const doorsElem = document.getElementById('doors').getBoundingClientRect();
+  //const doorHeight = roundDoors[0].height;
   const xPos = doorsElem.width/3;
 
   let yPos = 10;
@@ -77,20 +78,41 @@ function dropDoors(roundDoors){
     };
       yPos += 1;
 
-      if (yPos > 440) {
-        console.log("Destroy");
+      if(yPos === doorsElem.height - 160){
         for(let i = 0; i <= 2; i++){
-          console.log(doors[i]);
-          destroyDoor(doors[i]);
+          if(doors[i].dataset.correct === 'true'){
+            doors[i].classList.add('green');
+          }else{
+            doors[i].classList.add('red');
+          }
         };
-        getDoorClickHandler(doors);
-        clearInterval(moveId);
-        submitButton.click();
-        startButton.click();
-
       }
+      if (yPos > doorsElem.height - 150) {
+        for(let i = 0; i <= 2; i++){
+          destroyDoor(doors[i]);
+        }
+          submitButton.click();
+          startButton.click();
+          clearInterval(moveId);
+      };
   }, 20);
 
+}
+
+function checkDoors(doorArr){
+  for(let i = 0; i <= 2; i++){
+    if(doorArr[i].correct){
+      doorArr[i].classList.add('red');
+      console.log('correct');
+    }
+  };
+  setTimeout(function(){
+    for(let i = 0; i <= 2; i++){
+      destroyDoor(doorArr[i]);
+      submitButton.click();
+      startButton.click();
+    }
+  },200)
 }
 
 function getDoorCreator(){
@@ -101,6 +123,7 @@ function getDoorCreator(){
     doorDiv.classList.add('door');
 
     doorDiv.dataset.id = doorData.option;
+    doorDiv.dataset.correct = doorData.correctness;
     //doorDiv.dataset.speech = doorData.text;
 
     // hidden by default
@@ -158,7 +181,6 @@ function getDoorClickHandler(doors){
 
 
 
-}
 /**
  * Register all event handlers for the current game round and remove old hanlers
  * @param {Array} questions all question objects in an array
@@ -166,7 +188,6 @@ function getDoorClickHandler(doors){
  * @param {boolean} submitOnGameStop whether to submit the form on game stoppage or not
  * @returns {void}
  */
-
 function registerEventHandlers(questions, currentQuestion, submitOnGameStop = false) {
     const question = questions[currentQuestion];
     //const doorClickHandler = getDoorClickHandler();
