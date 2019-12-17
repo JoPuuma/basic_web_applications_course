@@ -94,25 +94,10 @@ function dropDoors(roundDoors){
           submitButton.click();
           startButton.click();
           clearInterval(moveId);
+          getDoorClickHandler(doors);
       };
   }, 20);
 
-}
-
-function checkDoors(doorArr){
-  for(let i = 0; i <= 2; i++){
-    if(doorArr[i].correct){
-      doorArr[i].classList.add('red');
-      console.log('correct');
-    }
-  };
-  setTimeout(function(){
-    for(let i = 0; i <= 2; i++){
-      destroyDoor(doorArr[i]);
-      submitButton.click();
-      startButton.click();
-    }
-  },200)
 }
 
 function getDoorCreator(){
@@ -149,7 +134,42 @@ function shuffle(a) {
     return a;
 }
 
-function doorClickHandler(){};
+function getDoorClickHandler(doors){
+
+  const correctCounter = document.getElementById('correct');
+  const wrongCounter = document.getElementById('wrong');
+
+  var objectPos = document.getElementById('object');
+  const objectRect = objectPos.getBoundingClientRect().width / 2;
+  objectPos = parseInt(objectPos.style.left) + objectRect;
+
+  const doorsElem = document.getElementById('doors').getBoundingClientRect();
+  const xPos = doorsElem.width/3;
+
+  let door;
+
+  if ( objectPos < xPos) {
+    door = doors[0];
+  }
+  else if (xPos <= objectPos && objectPos <= xPos *2) {
+    door = doors[1];
+  }
+  else if (objectPos > xPos *2) {
+    door = doors[2];
+  }
+
+  if (door.dataset.correct === 'true') {
+    correctCounter.textContent =
+        Number.parseInt(correctCounter.textContent) + 1;
+  }
+  else if (door.dataset.correct === 'false') {
+    wrongCounter.textContent =
+        Number.parseInt(wrongCounter.textContent) + 1;
+  }
+
+}
+
+
 
 /**
  * Register all event handlers for the current game round and remove old hanlers
@@ -160,7 +180,7 @@ function doorClickHandler(){};
  */
 function registerEventHandlers(questions, currentQuestion, submitOnGameStop = false) {
     const question = questions[currentQuestion];
-    //const doorClickHandler = getDoorClickHandler(question, currentQuestion);
+    //const doorClickHandler = getDoorClickHandler();
 
     const object = document.getElementById('object');
     const gameForm = document.getElementById('game-form');
@@ -196,7 +216,7 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
 
         // unhide bubbleContainer and start listening clicks
         doorContainer.classList.remove('hidden');
-        doorContainer.onclick = doorClickHandler;
+        //doorContainer.onclick = doorClickHandler;
 
         startGame();
     };
