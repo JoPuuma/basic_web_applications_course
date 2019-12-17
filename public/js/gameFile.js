@@ -61,7 +61,6 @@ function getGameStarter(question){
 
 function dropDoors(roundDoors){
   const doorsElem = document.getElementById('doors').getBoundingClientRect();
-  //const doorHeight = roundDoors[0].height;
   const xPos = doorsElem.width/3;
 
   let yPos = 10;
@@ -87,7 +86,7 @@ function dropDoors(roundDoors){
           }
         };
       }
-      if (yPos > doorsElem.height - 150) {
+      if (yPos > doorsElem.height - 155) {
         for(let i = 0; i <= 2; i++){
           destroyDoor(doors[i]);
         }
@@ -124,7 +123,6 @@ function getDoorCreator(){
 
     doorDiv.dataset.id = doorData.option;
     doorDiv.dataset.correct = doorData.correctness;
-    //doorDiv.dataset.speech = doorData.text;
 
     // hidden by default
     doorDiv.style.display = 'none';
