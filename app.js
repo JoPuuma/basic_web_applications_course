@@ -30,7 +30,7 @@ db.connectDB(dbConfig);
 // setup admin user
 require('./setup/createusers')(config.get('admin'));
 
-if (app.get('env') === 'development') {
+ if (app.get('env') === 'development') {
     app.use(logger('dev'));
 
     // insert sample data to database
