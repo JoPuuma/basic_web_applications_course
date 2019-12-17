@@ -106,6 +106,12 @@ app.use((request, response, next) => {
     next();
 });
 
+app.use((request, response, next) => {
+    // set path to views
+    response.locals.path = request.path;
+    next();
+});
+
 // flash messages
 app.use(flash());
 app.use((request, response, next) => {

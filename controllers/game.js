@@ -11,8 +11,13 @@ module.exports = {
      * @param {Object} response is express response object
      */
     getQuestions(request, response) {
-        Questionnaire.findOne({title: "Derivate"}, (err, data) => {
-            response.json(data.toJSON());
+
+        Questionnaire.findById(request.params.id, (err, data) => {
+            if (data) {
+                response.json(data.toJSON());
+            } else {
+                response.sendStatus(404);
+            }
         });
     },
 

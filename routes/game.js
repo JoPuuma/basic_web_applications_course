@@ -1,12 +1,18 @@
 'use strict';
 
 const express = require('express');
+const auth = require('../middleware/auth');
+
 const router = express.Router();
 const GameController = require('../controllers/game');
+const QuestionnaireController = require('../controllers/questionnaire');
 
-router.get('/data/game', GameController.getQuestions);
+router.use(auth.ensureStudent);
 
-router.get('/', GameController.showExercise);
-router.post('/', GameController.gradeExercise);
+router.get('/', QuestionnaireController.list);
+
+router.get('/data/:id', GameController.getQuestions);
+router.get('/:id', GameController.showExercise);
+router.post('/:id', GameController.gradeExercise);
 
 module.exports = router;
