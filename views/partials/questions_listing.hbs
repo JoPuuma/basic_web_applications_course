@@ -1,8 +1,8 @@
-{{#if questionnaires}}
-{{#withGroup questionnaires 1}}
+{{#if questions}}
+{{#withGroup questions 1}}
 <div class="card-deck mt-3">
-    {{#each this as |questionnaire index|}}
-    {{>questionnaire_info questionnaire}}
+    {{#each this as |question index|}}
+    {{>question_info question}}
     {{/each}}
 </div>
 {{/withGroup}}

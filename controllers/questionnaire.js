@@ -11,7 +11,14 @@ module.exports = {
         });
     },
 
-    show(request, response) {},
+    // Print questions of selected questionnaire
+    show(request, response) {
+        Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+            const questions = questionnaire.questions;
+            response.render('questionnaire/questions', {questions});
+        });
+    },
+
     create(request, response) {},
     processCreate(request, response) {},
     update(request, response) {},
