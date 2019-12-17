@@ -94,25 +94,10 @@ function dropDoors(roundDoors){
           submitButton.click();
           startButton.click();
           clearInterval(moveId);
+          getDoorClickHandler(doors);
       };
   }, 20);
 
-}
-
-function checkDoors(doorArr){
-  for(let i = 0; i <= 2; i++){
-    if(doorArr[i].correct){
-      doorArr[i].classList.add('red');
-      console.log('correct');
-    }
-  };
-  setTimeout(function(){
-    for(let i = 0; i <= 2; i++){
-      destroyDoor(doorArr[i]);
-      submitButton.click();
-      startButton.click();
-    }
-  },200)
 }
 
 function getDoorCreator(){
@@ -154,30 +139,35 @@ function getDoorClickHandler(doors){
   const correctCounter = document.getElementById('correct');
   const wrongCounter = document.getElementById('wrong');
 
-
-  var pos = parseInt(document.getElementById('object').style.left);
+  var objectPos = document.getElementById('object');
+  const objectRect = objectPos.getBoundingClientRect().width / 2;
+  objectPos = parseInt(objectPos.style.left) + objectRect;
 
   const doorsElem = document.getElementById('doors').getBoundingClientRect();
   const xPos = doorsElem.width/3;
 
+  let door;
 
-  if ( pos < xPos) {
-    let door = doors[0];
-    console.log(doors.dataset.correct);
-    if (door.correctness == 'true') {
-      console.log('1');
-    }
-    else if (door.correctness == 'false') {
-      console.log('2');
-    }
+  if ( objectPos < xPos) {
+    door = doors[0];
   }
-  else if (xPos <= pos && pos <= xPos *2) {
-
+  else if (xPos <= objectPos && objectPos <= xPos *2) {
+    door = doors[1];
   }
-  else if (pos > xPos *2) {
-
+  else if (objectPos > xPos *2) {
+    door = doors[2];
   }
 
+  if (door.dataset.correct === 'true') {
+    correctCounter.textContent =
+        Number.parseInt(correctCounter.textContent) + 1;
+  }
+  else if (door.dataset.correct === 'false') {
+    wrongCounter.textContent =
+        Number.parseInt(wrongCounter.textContent) + 1;
+  }
+
+}
 
 
 
