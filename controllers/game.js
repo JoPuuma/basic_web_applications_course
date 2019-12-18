@@ -1,6 +1,5 @@
 'use strict';
 
-const Game = require('../models/hello');  // TODO: Change model to game model
 const Questionnaire = require("../models/questionnaire");
 
 module.exports = {
