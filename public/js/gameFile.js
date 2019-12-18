@@ -207,12 +207,14 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
     submitButton.disabled = true;
     submitButton.classList.add('hidden');
 
-    // Show question title text
-    questionTitle.textContent = question.title;
-    questionTitle.classList.add('h3');
-    questionTitle.classList.remove('hidden');
+
 
     startButton.onclick = function (evt) {
+      
+        // Show question title text
+        questionTitle.textContent = question.title;
+        questionTitle.classList.add('h3');
+        questionTitle.classList.remove('hidden');
 
         // Activate submit button
         submitButton.disabled = false;
