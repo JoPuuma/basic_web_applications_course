@@ -90,10 +90,11 @@ function dropDoors(roundDoors){
         for(let i = 0; i <= 2; i++){
           destroyDoor(doors[i]);
         }
+          getDoorClickHandler(doors);
           submitButton.click();
           startButton.click();
           clearInterval(moveId);
-          getDoorClickHandler(doors);
+
       };
   }, 20);
 
@@ -108,7 +109,7 @@ function getDoorCreator(){
 
     doorDiv.dataset.id = doorData.option;
     doorDiv.dataset.correct = doorData.correctness;
-
+    doorDiv.dataset.speech = doorData.option;
     // hidden by default
     doorDiv.style.display = 'none';
     doorDiv.innerText = doorData.option;
@@ -132,6 +133,10 @@ function shuffle(a) {
     return a;
 }
 
+/**
+ * Handler records answers to question.
+ * @param {object} doors current doors
+ */
 function getDoorClickHandler(doors){
 
   const correctCounter = document.getElementById('correct');
@@ -159,14 +164,20 @@ function getDoorClickHandler(doors){
   if (door.dataset.correct === 'true') {
     correctCounter.textContent =
         Number.parseInt(correctCounter.textContent) + 1;
+        door.dataset.speech = 'ja taas mennään';
   }
   else if (door.dataset.correct === 'false') {
     wrongCounter.textContent =
         Number.parseInt(wrongCounter.textContent) + 1;
+        door.dataset.speech = 'killalle reenaa';
   }
 
-}
+  responsiveVoice.speak(
+      door.dataset.speech,
+      'Finnish Female'
+    );
 
+}
 
 
 /**
@@ -178,7 +189,6 @@ function getDoorClickHandler(doors){
  */
 function registerEventHandlers(questions, currentQuestion, submitOnGameStop = false) {
     const question = questions[currentQuestion];
-    //const doorClickHandler = getDoorClickHandler();
 
     const object = document.getElementById('object');
     const gameForm = document.getElementById('game-form');
@@ -214,7 +224,6 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
 
         // unhide bubbleContainer and start listening clicks
         doorContainer.classList.remove('hidden');
-        //doorContainer.onclick = doorClickHandler;
 
         startGame();
     };

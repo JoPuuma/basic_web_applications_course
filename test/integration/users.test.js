@@ -112,7 +112,7 @@ describe('/users', function() {
         });
 
         it('should not accept registration with too short password', async function() {
-            payload.email = '1';
+            payload.password = '1';
             const response = await request
                 .post(registerUrl)
                 // .type('form')
