@@ -99,12 +99,9 @@ const questionnaireSchema = new Schema({
     },
     questions: {
         type: [questionSchema],
-        required: true,
+        required: false,
         validate: {
             validator: (val) => {
-                if (!val || !Array.isArray(val)) return false;
-                if (val.length === 0) return false;
-
                 const uniqueQuestions = [];
                 val.forEach((current) => {
                     if (!current.title) return;
@@ -116,7 +113,7 @@ const questionnaireSchema = new Schema({
 
                 return uniqueQuestions.length === val.length;
             },
-            message: 'Questionnaire must have at least one question and question titles must be unique'
+            message: 'Question titles must be unique'
         }
     }
 });

@@ -31,13 +31,13 @@ module.exports = {
             const new_questionnaire = new Questionnaire();
             new_questionnaire.title = request.body.title;
             new_questionnaire.submissions = request.body.submissions;
+            new_questionnaire.save();
+            response.redirect('/questionnaires');
         } else {
             return response.render('questionnaire/add_questionnaire', {
                 errors: error
             });
         }
-
-        response.redirect('/questionnaires');
     },
 
     update(request, response) {},

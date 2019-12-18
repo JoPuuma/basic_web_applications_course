@@ -105,13 +105,6 @@ const questionnaireInputSchema = Joi.object()
             .error(() => {
                 return 'Number of submissions must be defined, it must be a positive integer.';
             }),
-        questions: Joi.array()
-            .min(1)
-            .items(questionInputSchema)
-            .required()
-            .error(() => {
-                return 'Questionnaire must contain at least one question.';
-            }),
         _csrf: csrfTokenSchema
     })
     .append(idInputSchema)
