@@ -59,6 +59,7 @@ Peli ikkunassa ylhäällä näkyy pelaajan pisteet reaaliajassa pelatessa. Kysym
 Pelin kulku: tarkoituksena on asettaa pelihahmo oikean oven kohdalle (vastaus luetaan siitä missä hahmon keskiosa sijaitsee), joka tapahtuu hiirtä liikuttamalla sivusuunnassa.
 Ovien värit muuttuu lopussa joko vihreäksi tai punaiseksi, jotta oikea vastaus selviää pelaajalle välittömästi sekä
 äänitehoste kuvastaa lisäksi menikö vastaus oikein.
+Kysymysten loputtua peli päättyy ja aukeaa ikkuna, jossa näkyy pelin lopputulos.
 
 "Create a short document that describes how your coursework handles these requirements." Ja erikseen maininta sitten että pitää selvittää miten se softa ajetaan.
 
