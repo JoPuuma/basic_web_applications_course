@@ -138,9 +138,10 @@ function shuffle(a) {
  */
 function getDoorClickHandler(doors){
 
-  const correctCounter = document.getElementById('correct');
-  const wrongCounter = document.getElementById('wrong');
-
+  let correctDiv = document.getElementById('correctDiv');
+  let wrongDiv = document.getElementById('wrongDiv');
+  let correctInput = document.getElementById('correct');
+  let wrongInput = document.getElementById('wrong');
   var objectPos = document.getElementById('object');
   const objectRect = objectPos.getBoundingClientRect().width / 2;
   objectPos = parseInt(objectPos.style.left) + objectRect;
@@ -161,13 +162,15 @@ function getDoorClickHandler(doors){
   }
 
   if (door.dataset.correct === 'true') {
-    correctCounter.textContent =
-        Number.parseInt(correctCounter.textContent) + 1;
+    correctDiv.textContent =
+        Number.parseInt(correctDiv.textContent) + 1;
+        correctInput.value = parseInt(correctInput.value) + 1;
         door.dataset.speech = 'ja taas mennään';
   }
   else if (door.dataset.correct === 'false') {
-    wrongCounter.textContent =
-        Number.parseInt(wrongCounter.textContent) + 1;
+    wrongDiv.textContent =
+        Number.parseInt(wrongDiv.textContent) + 1;
+        wrongInput.value = parseInt(wrongInput.value) + 1;
         door.dataset.speech = 'killalle reenaa';
   }
 

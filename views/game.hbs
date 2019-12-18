@@ -1,5 +1,7 @@
 <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 <div id="exercise" class="container">
+    <div id=correctDiv class="textContent">0</div>
+    <div id=wrongDiv class="textContent">0</div>
     <div class="row mt-5">
         <div class="col-md-6 m-auto">
             <div class="card card-body">
@@ -12,13 +14,11 @@
                     </div>
                     <button id="start-game" class="btn btn-primary">Start Game</button>
                     <form method="POST">
+                        <input type="number" id="correct" name="correct" class= "hidden" value="0">
+                        <input type= "number" id="wrong" name="wrong" class= "hidden" value="0">
                         <button id="grade" type="submit" class="btn btn-primary">Grade</button>
                     </form>
                 </div>
-
-                    <div id="correct" style="display:none" class="textContent">0</div>
-                      <div id="wrong" style="display:none" class="textContent">0</div>
-
                 <!-- <script src='/js/game.js'></script> -->
                 <script src='/js/gameFile.js'></script>
             </div>
