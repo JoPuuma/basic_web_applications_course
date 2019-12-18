@@ -54,13 +54,22 @@ TODO: add your files here and give a short description
 
 ## Game
 
-TODO: describe your work
+Alku ikkunassa pelaaja valitsee, minkä tyyppisiä kysymyksiä peliin tulee. Vaihtoehdot näkyy niiden otsikoiden perusteella.
+Peli ikkunassa ylhäällä näkyy pelaajan pisteet reaaliajassa pelatessa. Kysymys näkyy peliruudun yläosassa. Peli aloitetaan 'start' napista ja loppuu automaattisesti kysymysten loppuessa. Kysymysvaihtoehdot näkyy pelilaudalla ovien sisällä.
+Pelin kulku: tarkoituksena on asettaa pelihahmo oikean oven kohdalle (vastaus luetaan siitä missä hahmon keskiosa sijaitsee), joka tapahtuu hiirtä liikuttamalla sivusuunnassa.
+Ovien värit muuttuu lopussa joko vihreäksi tai punaiseksi, jotta oikea vastaus selviää pelaajalle välittömästi sekä
+äänitehoste kuvastaa lisäksi menikö vastaus oikein.
 
 "Create a short document that describes how your coursework handles these requirements." Ja erikseen maininta sitten että pitää selvittää miten se softa ajetaan.
 
 ## Management view
 
-TODO: describe your work
+'Users' ikkunassa voidaan muokata käyttäjiä (vain adminille). Käyttäjien rooleja voidaan vaihtaa, alussa oletuksena 'student'.
+Lisäksi käyttäjä voidaan poistaa kokonaan tietokannasta.
+
+'Exercises' ikkunassa voidaan muokata pelissä olevia kysymyksiä tai lisätä kokonaan uusia (adminille ja opettajalle).
+ Kysymyssarjasta voi muokata otsikkoa, poistaa yksittäisiä kysymyksiä tai esikatsella kysymyksiä.
+ Peliin voi myös lisätä kokonaan uusia kysymyssarjoja.
 
 ## Tests and documentation
 
