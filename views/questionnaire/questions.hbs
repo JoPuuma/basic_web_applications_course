@@ -2,4 +2,11 @@
     <h2>Questions</h2>
     {{>messages}}
     {{>questions_listing}}
+    <div class="card-deck mt-3">
+        <div class="card">
+            <div class="card-footer">
+                <a class="btn btn-primary" href="/questionnaires/new/{{questionnaire.id}}">Add question</a>
+            </div>
+        </div>
+    </div>
 </div>
