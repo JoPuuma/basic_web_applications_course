@@ -53,12 +53,14 @@ describe('tests',function(){
 
   describe('gameFile',function(){
     it('shuffle: length',function(done){
+      let a,b,c;
       let testArr = [a,b,c];
       let resultArr = Game.shuffle(testArr);
       expect(resultArr.length).to.equal(testArr.length);
       done();
     });
     it('shuffle: same values should exist',function(done){
+      let a,b,c;
       let testArr = [a,b,c];
       let resultArr = Game.shuffle(testArr);
       expect(testArr).toEqual(expect.arrayContaining(resultArr));
