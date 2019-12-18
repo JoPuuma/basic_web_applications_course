@@ -23,7 +23,7 @@
   background-color: lightgreen;
   padding-top: 12px;
   text-align: center;
-  opacity: 70%;
+  opacity: 80%;
 }
 #wrongDiv {
   float: left;
@@ -33,7 +33,7 @@
   background-color: red;
   padding-top: 12px;
   text-align: center;
-  opacity: 70%;
+  opacity: 80%;
 }
 
 #container div {
