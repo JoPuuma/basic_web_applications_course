@@ -142,6 +142,7 @@ function getDoorClickHandler(doors){
   let wrongDiv = document.getElementById('wrongDiv');
   let correctInput = document.getElementById('correct');
   let wrongInput = document.getElementById('wrong');
+
   var objectPos = document.getElementById('object');
   const objectRect = objectPos.getBoundingClientRect().width / 2;
   objectPos = parseInt(objectPos.style.left) + objectRect;
@@ -191,7 +192,7 @@ function getDoorClickHandler(doors){
  */
 function registerEventHandlers(questions, currentQuestion, submitOnGameStop = false) {
     const question = questions[currentQuestion];
-    //const doorClickHandler = getDoorClickHandler();
+
     const startButton = document.getElementById('start-game');
     const submitButton = document.getElementById('grade');
     const object = document.getElementById('object');
@@ -228,7 +229,7 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
         startButton.classList.add('hidden');
         startButton.onclick = undefined;
 
-        // unhide bubbleContainer and start listening clicks
+        // unhide doorContainer and start listening clicks
         doorContainer.classList.remove('hidden');
 
         startGame();
