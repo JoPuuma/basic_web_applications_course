@@ -1,15 +1,15 @@
 <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 <div id="exercise" class="container">
-    <div id=correctDiv class="textContent">0</div>
-    <div id=wrongDiv class="textContent">0</div>
     <div class="row mt-5">
         <div class="col-md-6 m-auto">
             <div class="card card-body">
                 {{>messages}}
                 <h3 id="title" class="text-center mb-3">Door Game</h3>
+                <div id=parent>
+                    <div id=correctDiv class="textContent correctDiv">0</div>
+                    <div id=wrongDiv class="textContent wrongDiv">0</div>
+                </div>
                 <div id="game-form">
-                  <div id="correct"  class="textContent">0</div>
-                    <div id="wrong"  class="textContent">0</div>
                     <p id="question-title"></p>
                     <div id="doors">
                         <div id="object" class="movable-object"></div>
