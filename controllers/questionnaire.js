@@ -6,7 +6,7 @@ module.exports = {
 
     // Prints questionnaire collections
     list(request, response) {
-        Questionnaire.find().sort('title').select('title').exec((err, questionnaires) => {
+        Questionnaire.find().sort('title').select('title questions').exec((err, questionnaires) => {
             response.render('questionnaire/questionnaires', {questionnaires});
         });
     },

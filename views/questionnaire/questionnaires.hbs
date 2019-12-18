@@ -2,6 +2,7 @@
     <h2>Questionnaires</h2>
     {{>messages}}
     {{>questionnaire_listing}}
+    {{#if (eq @root.path "/questionnaires")}}
     <div class="card-deck mt-3">
         <div class="card">
             <div class="card-footer">
@@ -9,4 +10,5 @@
             </div>
         </div>
     </div>
+    {{/if}}
 </div>
