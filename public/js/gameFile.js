@@ -2,6 +2,8 @@
 
 loadGameData();
 
+
+
 async function loadGameData() {
     const data_uri = `/game/data/${document.location.pathname.split('/').pop()}`;
     try {
@@ -283,3 +285,4 @@ function handleMouseMove(event) {
     }
     object.style.left = xPos + 'px';
 }
+//export {shuffle};

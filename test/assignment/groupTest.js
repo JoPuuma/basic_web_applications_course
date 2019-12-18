@@ -10,6 +10,7 @@ const Browser = require('zombie');
 const app = require('../../app.js');
 let Game = require('../../public/js/gameFile.js');
 let GameController = require('../../controllers/game.js');
+import * as game from '../../public/js/gameFile.js';
 
 const port = 3000;
 
@@ -50,22 +51,22 @@ describe('tests',function(){
   //     await browser.visit()
   //   })
   // })
-
-  describe('gameFile',function(){
-    it('shuffle: length',function(done){
-      let a,b,c;
-      let testArr = [a,b,c];
-      let resultArr = Game.shuffle(testArr);
-      expect(resultArr.length).to.equal(testArr.length);
-      done();
-    });
-    it('shuffle: same values should exist',function(done){
-      let a,b,c;
-      let testArr = [a,b,c];
-      let resultArr = Game.shuffle(testArr);
-      expect(testArr).toEqual(expect.arrayContaining(resultArr));
-      done();
-    });
-  })
+  // 
+  // describe('gameFile',function(){
+  //   it('shuffle: length',function(done){
+  //     let a,b,c;
+  //     let testArr = [a,b,c];
+  //     let resultArr = game.shuffle(testArr);
+  //     expect(resultArr.length).to.equal(testArr.length);
+  //     done();
+  //   });
+  //   it('shuffle: same values should exist',function(done){
+  //     let a,b,c;
+  //     let testArr = [a,b,c];
+  //     let resultArr = game.shuffle(testArr);
+  //     expect(testArr).toEqual(expect.arrayContaining(resultArr));
+  //     done();
+  //   });
+  // })
 
 });
