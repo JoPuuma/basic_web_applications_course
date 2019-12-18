@@ -10,6 +10,6 @@ describe('gameFile tests',function(){
   it('<what to test>', function(done){
 
     done();
-  })
+  });
 
 });

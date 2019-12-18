@@ -13,9 +13,6 @@ async function loadGameData() {
     }
 }
 
-const startButton = document.getElementById('start-game');
-const submitButton = document.getElementById('grade');
-
 
 /**
  * Play next round of game
@@ -60,6 +57,8 @@ function getGameStarter(question){
 }
 
 function dropDoors(roundDoors){
+  const startButton = document.getElementById('start-game');
+  const submitButton = document.getElementById('grade');
   const doorsElem = document.getElementById('doors').getBoundingClientRect();
   const xPos = doorsElem.width/3;
 
@@ -189,7 +188,9 @@ function getDoorClickHandler(doors){
  */
 function registerEventHandlers(questions, currentQuestion, submitOnGameStop = false) {
     const question = questions[currentQuestion];
-
+    //const doorClickHandler = getDoorClickHandler();
+    const startButton = document.getElementById('start-game');
+    const submitButton = document.getElementById('grade');
     const object = document.getElementById('object');
     const gameForm = document.getElementById('game-form');
     const startGame = getGameStarter(question);
@@ -210,7 +211,7 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
 
 
     startButton.onclick = function (evt) {
-      
+
         // Show question title text
         questionTitle.textContent = question.title;
         questionTitle.classList.add('h3');
