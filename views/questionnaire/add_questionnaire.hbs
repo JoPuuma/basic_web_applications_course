@@ -13,11 +13,15 @@
                 {{/if}}
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" name="title" class="form-control" id="title" required>
+                        <input type="text" name="title" class="form-control" id="title"
+                            {{#if (not new)}}value="{{questionnaire.title}}"{{/if}}
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="submissions">Submissions</label>
-                        <input type="number" min="1" name="submissions" class="form-control" id="submissions" required>
+                        <input type="number" min="1" name="submissions" class="form-control" id="submissions"
+                            {{#if (not new)}}value="{{questionnaire.submissions}}"{{/if}}
+                            required>
                     </div>
                     <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <button type="submit" class="btn btn-primary">Save</button>
