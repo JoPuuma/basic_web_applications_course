@@ -21,6 +21,7 @@ module.exports = {
 
     create(request, response) {
         response.render('questionnaire/add_questionnaire', {
+            new: true,
             csrfToken: request.csrfToken()
         });
     },
@@ -40,8 +41,32 @@ module.exports = {
         }
     },
 
-    update(request, response) {},
-    processUpdate(request, response) {},
+    updateQuestionnaire(request, response) {
+        Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+            response.render('questionnaire/add_questionnaire', {
+                new: false,
+                questionnaire: questionnaire,
+                csrfToken: request.csrfToken()
+            });
+        });
+    },
+
+    processUpdateQuestionnaire(request, response) {
+        const {error} = Questionnaire.validateQuestionnaire(request.body);
+        if (!error) {
+            Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+                questionnaire.title = request.body.title;
+                questionnaire.submissions = request.body.submissions;
+                questionnaire.save();
+                response.redirect('/questionnaires');
+            });
+        } else {
+            return response.render('questionnaire/add_questionnaire', {
+                errors: error
+            });
+        }
+    },
+
     delete(request, response) {},
     processDelete(request, response) {}
 };
