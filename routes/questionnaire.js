@@ -20,8 +20,8 @@ router.get('/new', QuestionnaireController.create);
 router.post('/new', QuestionnaireController.processCreate);
 
 // Update a questionnaire
-router.get('/edit/:id([a-f0-9]{24})', QuestionnaireController.update);
-router.post('/edit/:id([a-f0-9]{24})', QuestionnaireController.processUpdate);
+router.get('/edit/questionnaire/:id([a-f0-9]{24})', QuestionnaireController.updateQuestionnaire);
+router.post('/edit/questionnaire/:id([a-f0-9]{24})', QuestionnaireController.processUpdateQuestionnaire);
 
 // Delete documents
 router.get('/delete/:id([a-f0-9]{24})', QuestionnaireController.delete);
