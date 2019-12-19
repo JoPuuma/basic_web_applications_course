@@ -1,7 +1,7 @@
 <script type="text/javascript" src="/js/filterList.js"></script>
 <div class="container">
     <h2>Questionnaires</h2>
-    <input type="text" id="inputStr" onkeyup="filter()" class="search" placeholder="Search for questionnaire titles...">
+    <input type="text" id="inputStr" onkeyup="filter()" class="form-control" placeholder="Search for questionnaire titles...">
     {{>messages}}
     {{>questionnaire_listing}}
     {{#if (eq @root.path "/questionnaires")}}
