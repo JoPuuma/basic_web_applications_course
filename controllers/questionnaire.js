@@ -68,6 +68,10 @@ module.exports = {
 
     update(request, response) {
         Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+            // Add empty question for a new question form
+            questionnaire.questions.push({options:Array(3).fill(null)});
+            console.log(questionnaire);
+            console.log(questionnaire.questions.slice(-1)[0]);
             response.render('questionnaire/edit_questionnaire', {
                 new: false,
                 questionnaire: questionnaire,
@@ -91,9 +95,12 @@ module.exports = {
             if (!error) {
                 questionnaire.title = request.body.title;
                 questionnaire.submissions = request.body.submissions;
+                questionnaire.questions = request.body.questions;
                 questionnaire.save();
                 response.redirect('/questionnaires');
             } else {
+                // Add empty question for a new question form
+                questionnaire.questions.push({options:Array(3).fill(null)});
                 return response.render('questionnaire/edit_questionnaire', {
                     new: false,
                     questionnaire: questionnaire,
