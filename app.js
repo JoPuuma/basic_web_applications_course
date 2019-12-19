@@ -109,6 +109,14 @@ app.use((request, response, next) => {
 app.use((request, response, next) => {
     // set path to views
     response.locals.path = request.path;
+    hbsHelpers.inc = (name, value, context) => {
+        if (value === 'clear') {
+            this[name] = -1;
+        } else {
+            this[name] += value;
+            return this[name];
+        }
+    };
     next();
 });
 

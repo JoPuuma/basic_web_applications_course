@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header">
+        <input type="text" name="questions[{{index}}][title]" class="form-control"
+            id="questions[{{index}}][title]"
+            {{#if (not new)}}value="{{question.title}}"{{/if}}
+            required>
+        <div class="form-group row">
+            <label for="submissions" class="col-sm-3 col-form-label">Max points</label>
+            <input type="number" min="1" name="questions[{{index}}][maxPoints]"
+                class="col-sm-8 form-control" id="questions[{{index}}][maxPoints]"
+                {{#if (not new)}}value="{{question.maxPoints}}"{{/if}}
+                required>
+        </div>
+    </div>
+    <div class="card-body">
+        <ul class="option">
+            {{#each question.options as |option index|}}
+            <li>
+                <input type="checkbox" name="questions[{{../index}}][options][{{index}}][correctness]"
+                    id="questions[{{../index}}][options][{{index}}][correctness]" value="true"
+                    {{#if option.correctness}}checked {{/if}}>
+                <input type="text" name="questions[{{../index}}][options][{{index}}][option]"
+                    class="option-text" id="questions[{{../index}}][options][{{index}}][option]"
+                    {{#if (not ../new)}}value="{{option.option}}"{{/if}}
+                    required>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-danger" href="/questionnaire/delete/{{question.id}}">Remove question</a>
+    </div>
+</div>

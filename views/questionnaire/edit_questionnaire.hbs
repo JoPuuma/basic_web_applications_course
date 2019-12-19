@@ -1,0 +1,44 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/edit_questionnaire.js"></script>
+<div class="container">
+    <h2>Edit questionnaire</h2>
+    {{>messages}}
+    <form method="POST" action="/questionnaires/edit/{{questionnaire.id}}" id="questionnaire_form">
+
+        <div class="card-deck mt-3">
+        {{>questionnaire_edit questionnaire}}
+        </div>
+
+        <div id="questions_div">
+            {{inc 'i' 'clear'}}
+            {{#withGroup questionnaire.questions 2}}
+            <div class="card-deck mt-3">
+                {{#each this as |question index|}}
+                    {{#if question.title}}
+                        {{>question_edit
+                            question=question
+                            index=(inc 'i' 1)
+                            new=../../new}}
+                    {{else}}
+                        {{>question_add
+                            question=question
+                            index=(inc 'i' 1)
+                            new=../../new}}
+                    {{/if}}
+                {{/each}}
+            </div>
+            {{/withGroup}}
+        </div>
+
+        <div class="card-deck mt-3">
+            <div class="card">
+                <div class="card-header">
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a class="btn btn-danger" href="/questionnaire/delete/{{questionnaire.id}}">Remove questionnaire</a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

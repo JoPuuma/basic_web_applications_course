@@ -14,8 +14,7 @@ module.exports = {
     // Print questions of selected questionnaire
     show(request, response) {
         Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
-            const questions = questionnaire.questions;
-            response.render('questionnaire/questions', {questions});
+            response.render('questionnaire/questions', {questionnaire});
         });
     },
 
@@ -41,9 +40,39 @@ module.exports = {
         }
     },
 
-    updateQuestionnaire(request, response) {
+    createQuestion(request, response) {
         Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
-            response.render('questionnaire/add_questionnaire', {
+            response.render('questionnaire/add_question', {
+                new: true,
+                questionnaire: questionnaire,
+                csrfToken: request.csrfToken()
+            });
+        });
+    },
+
+    processCreateQuestion(request, response) {
+        const {error} = Questionnaire.validateQuestion(request.body);
+        if (!error) {
+            Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+                // questionnaire.title = request.body.title;
+                // questionnaire.submissions = request.body.submissions;
+                // questionnaire.save();
+                response.redirect(`/questionnaires/${questionnaire.id}`);
+            });
+        } else {
+            return response.render('questionnaire/add_question', {
+                errors: error
+            });
+        }
+    },
+
+    update(request, response) {
+        Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+            // Add empty question for a new question form
+            questionnaire.questions.push({options:Array(3).fill(null)});
+            console.log(questionnaire);
+            console.log(questionnaire.questions.slice(-1)[0]);
+            response.render('questionnaire/edit_questionnaire', {
                 new: false,
                 questionnaire: questionnaire,
                 csrfToken: request.csrfToken()
@@ -51,20 +80,35 @@ module.exports = {
         });
     },
 
-    processUpdateQuestionnaire(request, response) {
+    processUpdate(request, response) {
+        for (const question of request.body.questions) {
+            for (let option of question.options) {
+                if (option.correctness) {
+                    option.correctness = true;
+                } else {
+                    option.correctness = false;
+                }
+            }
+        }
         const {error} = Questionnaire.validateQuestionnaire(request.body);
-        if (!error) {
-            Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+        Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+            if (!error) {
                 questionnaire.title = request.body.title;
                 questionnaire.submissions = request.body.submissions;
+                questionnaire.questions = request.body.questions;
                 questionnaire.save();
                 response.redirect('/questionnaires');
-            });
-        } else {
-            return response.render('questionnaire/add_questionnaire', {
-                errors: error
-            });
-        }
+            } else {
+                // Add empty question for a new question form
+                questionnaire.questions.push({options:Array(3).fill(null)});
+                return response.render('questionnaire/edit_questionnaire', {
+                    new: false,
+                    questionnaire: questionnaire,
+                    csrfToken: request.csrfToken(),
+                    errors: error
+                });
+            }
+        });
     },
 
     delete(request, response) {},
