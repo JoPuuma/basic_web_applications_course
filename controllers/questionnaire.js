@@ -40,32 +40,6 @@ module.exports = {
         }
     },
 
-    createQuestion(request, response) {
-        Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
-            response.render('questionnaire/add_question', {
-                new: true,
-                questionnaire: questionnaire,
-                csrfToken: request.csrfToken()
-            });
-        });
-    },
-
-    processCreateQuestion(request, response) {
-        const {error} = Questionnaire.validateQuestion(request.body);
-        if (!error) {
-            Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
-                // questionnaire.title = request.body.title;
-                // questionnaire.submissions = request.body.submissions;
-                // questionnaire.save();
-                response.redirect(`/questionnaires/${questionnaire.id}`);
-            });
-        } else {
-            return response.render('questionnaire/add_question', {
-                errors: error
-            });
-        }
-    },
-
     update(request, response) {
         Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
             // Add empty question for a new question form
