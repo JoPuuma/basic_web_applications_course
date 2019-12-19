@@ -19,33 +19,49 @@ module.exports = {
     },
 
     create(request, response) {
-        response.render('questionnaire/add_questionnaire', {
-            new: true,
+        let questionnaire = new Questionnaire;
+        // Add empty question for a new question form
+        questionnaire.questions.push({options:Array(3).fill(null)});
+        response.render('questionnaire/edit_questionnaire', {
+            questionnaire: questionnaire,
             csrfToken: request.csrfToken()
         });
     },
 
     processCreate(request, response) {
+        // Set correctness values
+        for (const question of request.body.questions) {
+            for (const option of question.options) {
+                if (option.correctness) {
+                    option.correctness = true;
+                } else {
+                    option.correctness = false;
+                }
+            }
+        }
         const {error} = Questionnaire.validateQuestionnaire(request.body);
+        let questionnaire = new Questionnaire;
         if (!error) {
-            const new_questionnaire = new Questionnaire();
-            new_questionnaire.title = request.body.title;
-            new_questionnaire.submissions = request.body.submissions;
-            new_questionnaire.save();
+            questionnaire.title = request.body.title;
+            questionnaire.submissions = request.body.submissions;
+            questionnaire.questions = request.body.questions;
+            questionnaire.save();
             response.redirect('/questionnaires');
         } else {
-            return response.render('questionnaire/add_questionnaire', {
+            // Add empty question for a new question form
+            questionnaire.questions.push({options:Array(3).fill(null)});
+            return response.render('questionnaire/edit_questionnaire', {
+                questionnaire: questionnaire,
+                csrfToken: request.csrfToken(),
                 errors: error
             });
         }
     },
-
     update(request, response) {
         Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
             // Add empty question for a new question form
             questionnaire.questions.push({options:Array(3).fill(null)});
             response.render('questionnaire/edit_questionnaire', {
-                new: false,
                 questionnaire: questionnaire,
                 csrfToken: request.csrfToken()
             });
@@ -75,7 +91,6 @@ module.exports = {
                 // Add empty question for a new question form
                 questionnaire.questions.push({options:Array(3).fill(null)});
                 return response.render('questionnaire/edit_questionnaire', {
-                    new: false,
                     questionnaire: questionnaire,
                     csrfToken: request.csrfToken(),
                     errors: error
@@ -116,7 +131,6 @@ module.exports = {
                 const error = ['Questionnaire must contain at least one question.'];
                 questionnaire.questions.push({options:Array(3).fill(null)});
                 response.render('questionnaire/edit_questionnaire', {
-                    new: false,
                     questionnaire: questionnaire,
                     csrfToken: request.csrfToken(),
                     error: error
