@@ -1,6 +1,6 @@
 'use strict';
 
-const Questionnaire = require("../models/questionnaire");
+const Questionnaire = require('../models/questionnaire');
 
 module.exports = {
 

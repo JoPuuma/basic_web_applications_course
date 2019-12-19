@@ -127,8 +127,8 @@ userSchema.virtual('isStudent').get(function() {
 });
 
 userSchema.statics.getAvailableRoles = function() {
-    var roles = [];
-    for (var role of schemaDefaults.role.values) {
+    const roles = [];
+    for (const role of schemaDefaults.role.values) {
         roles.push({name: role[0].toUpperCase()+role.slice(1), value: role});
     }
     return roles;

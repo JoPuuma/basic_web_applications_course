@@ -1,5 +1,5 @@
 {{#if questionnaires}}
-{{#withGroup questionnaires 2}}
+{{#withGroup questionnaires 1}}
 <div class="card-deck mt-3">
     {{#each this as |questionnaire index|}}
     {{#if (or questionnaire.questions.length (eq @root.path "/questionnaires"))}}
