@@ -13,6 +13,7 @@ router.get('/', QuestionnaireController.list);
 
 router.get('/data/:id', GameController.getQuestions);
 router.get('/:id', GameController.showExercise);
+//router.post('/:id', GameController.gradeExercise);
 router.post('/:id', GameController.gradeExercise);
 
 module.exports = router;

@@ -1,6 +1,5 @@
 'use strict';
 
-const Game = require('../models/hello');  // TODO: Change model to game model
 const Questionnaire = require("../models/questionnaire");
 
 module.exports = {
@@ -38,11 +37,11 @@ module.exports = {
      */
 
     gradeExercise(request, response) {
-        const maxPoints = 2;
-        const points = Game.grade(request.body.answer, maxPoints);
-        response.render('hello-graded', {
-            points: points,
-            maxPoints: maxPoints,
+        const correctPoints = parseInt(request.body.correct);
+        const wrongPoints = parseInt(request.body.wrong);
+        response.render('game-graded', {
+            points: correctPoints,
+            maxPoints: correctPoints + wrongPoints,
             status: 'graded',
             description: 'minimal viable grader in the express framework',
             title: 'A+ greetings'
