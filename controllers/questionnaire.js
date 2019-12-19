@@ -70,8 +70,6 @@ module.exports = {
         Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
             // Add empty question for a new question form
             questionnaire.questions.push({options:Array(3).fill(null)});
-            console.log(questionnaire);
-            console.log(questionnaire.questions.slice(-1)[0]);
             response.render('questionnaire/edit_questionnaire', {
                 new: false,
                 questionnaire: questionnaire,
@@ -112,8 +110,20 @@ module.exports = {
         });
     },
 
-    delete(request, response) {},
-    processDelete(request, response) {},
+    delete(request, response) {
+        Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+            response.render('questionnaire/delete', {
+                title: questionnaire.title,
+                csrfToken: request.csrfToken()
+            });
+        });
+    },
+
+    processDelete(request, response) {
+        Questionnaire.findByIdAndDelete(request.params.id).exec((err, questionnaire) => {
+            response.redirect('/questionnaires');
+        });
+    },
 
     deleteQuestion(request, response) {
         Questionnaire.findById(request.params.id_questionnaire).exec((err, questionnaire) => {
@@ -123,22 +133,33 @@ module.exports = {
                     title = question.title;
                 }
             }
-
-            response.render('questionnaire/delete', {
-                title: title,
-                csrfToken: request.csrfToken()
-            });
+            if (questionnaire.questions.length > 1) {
+                response.render('questionnaire/delete', {
+                    title: title,
+                    csrfToken: request.csrfToken()
+                });
+            } else {
+                const error = ['Questionnaire must contain at least one question.'];
+                questionnaire.questions.push({options:Array(3).fill(null)});
+                response.render('questionnaire/edit_questionnaire', {
+                    new: false,
+                    questionnaire: questionnaire,
+                    csrfToken: request.csrfToken(),
+                    error: error
+                });
+            }
         });
     },
 
     processDeleteQuestion(request, response) {
         Questionnaire.findById(request.params.id_questionnaire).exec((err, questionnaire) => {
-            let title;
-            for (let i = 0; i < questionnaire.questions.length; i++) {
-                if (questionnaire.questions[i].id === request.params.id_question) {
-                    questionnaire.questions.splice(i,1);
-                    questionnaire.save();
-                    break;
+            if (questionnaire.questions.length > 1) {
+                for (let i = 0; i < questionnaire.questions.length; i++) {
+                    if (questionnaire.questions[i].id === request.params.id_question) {
+                        questionnaire.questions.splice(i,1);
+                        questionnaire.save();
+                        break;
+                    }
                 }
             }
             response.redirect('/questionnaires');
