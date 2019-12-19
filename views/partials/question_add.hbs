@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header" hidden>
         <input type="text" name="questions[{{index}}][title]" class="form-control"
-            id="questions[{{index}}][title]" disabled>
+            id="questions[{{index}}][title]" placeholder="Question" disabled>
         <div class="form-group row">
             <label for="submissions" class="col-sm-3 col-form-label">Max points</label>
             <input type="number" min="1" name="questions[{{index}}][maxPoints]"
@@ -15,7 +15,8 @@
                 <input type="checkbox" name="questions[{{../index}}][options][{{index}}][correctness]"
                     id="questions[{{../index}}][options][{{index}}][correctness]" value="true" disabled>
                 <input type="text" name="questions[{{../index}}][options][{{index}}][option]"
-                    class="option-text" id="questions[{{../index}}][options][{{index}}][option]" disabled>
+                    class="option-text" id="questions[{{../index}}][options][{{index}}][option]"
+                    placeholder="Option {{add index 1}}" disabled>
             </li>
             {{/each}}
         </ul>

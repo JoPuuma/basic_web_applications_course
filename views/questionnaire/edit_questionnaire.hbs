@@ -14,7 +14,8 @@
             {{#withGroup questionnaire.questions 2}}
             <div class="card-deck mt-3">
                 {{#each this as |question index|}}
-                    {{#if (or question.title (isnt i 0))}}
+                    {{!New question box is forced visible if it is the only one}}
+                    {{#if (or question.title (eq (inc 'i' 0) -1))}}
                         {{>question_edit
                             id_questionnaire=../../questionnaire.id
                             question=question
