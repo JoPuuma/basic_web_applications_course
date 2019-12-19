@@ -1,7 +1,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/js/edit_questionnaire.js"></script>
 <div class="container">
+    {{#if questionnaire.title}}
     <h2>Edit questionnaire</h2>
+    {{else}}
+    <h2>Add a new questionnaire</h2>
+    {{/if}}
     {{>messages}}
     <form method="POST" id="questionnaire_form">
 
@@ -18,6 +22,7 @@
                     {{#if (or question.title (eq (inc 'i' 0) -1))}}
                         {{>question_edit
                             id_questionnaire=../../questionnaire.id
+                            new_questionnaire=(not ../../questionnaire.title)
                             question=question
                             index=(inc 'i' 1)}}
                     {{else}}
@@ -35,7 +40,9 @@
                 <div class="card-header">
                     <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <button type="submit" class="btn btn-primary">Save</button>
+                    {{#if questionnaire.title}}
                     <a class="btn btn-danger" href="/questionnaires/delete/{{questionnaire.id}}">Remove questionnaire</a>
+                    {{/if}}
                 </div>
             </div>
         </div>
