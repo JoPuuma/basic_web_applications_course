@@ -16,6 +16,7 @@
                 {{#each this as |question index|}}
                     {{#if question.title}}
                         {{>question_edit
+                            id_questionnaire=../../questionnaire.id
                             question=question
                             index=(inc 'i' 1)
                             new=../../new}}
@@ -35,7 +36,7 @@
                 <div class="card-header">
                     <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <a class="btn btn-danger" href="/questionnaire/delete/{{questionnaire.id}}">Remove questionnaire</a>
+                    <a class="btn btn-danger" href="/questionnaires/delete/{{questionnaire.id}}">Remove questionnaire</a>
                 </div>
             </div>
         </div>
