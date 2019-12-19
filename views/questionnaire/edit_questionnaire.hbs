@@ -3,7 +3,7 @@
 <div class="container">
     <h2>Edit questionnaire</h2>
     {{>messages}}
-    <form method="POST" action="/questionnaires/edit/{{questionnaire.id}}" id="questionnaire_form">
+    <form method="POST" id="questionnaire_form">
 
         <div class="card-deck mt-3">
         {{>questionnaire_edit questionnaire}}
@@ -14,17 +14,15 @@
             {{#withGroup questionnaire.questions 2}}
             <div class="card-deck mt-3">
                 {{#each this as |question index|}}
-                    {{#if question.title}}
+                    {{#if (or question.title (isnt i 0))}}
                         {{>question_edit
                             id_questionnaire=../../questionnaire.id
                             question=question
-                            index=(inc 'i' 1)
-                            new=../../new}}
+                            index=(inc 'i' 1)}}
                     {{else}}
                         {{>question_add
                             question=question
-                            index=(inc 'i' 1)
-                            new=../../new}}
+                            index=(inc 'i' 1)}}
                     {{/if}}
                 {{/each}}
             </div>

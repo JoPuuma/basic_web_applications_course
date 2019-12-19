@@ -19,61 +19,49 @@ module.exports = {
     },
 
     create(request, response) {
-        response.render('questionnaire/add_questionnaire', {
-            new: true,
+        let questionnaire = new Questionnaire;
+        // Add empty question for a new question form
+        questionnaire.questions.push({options:Array(3).fill(null)});
+        response.render('questionnaire/edit_questionnaire', {
+            questionnaire: questionnaire,
             csrfToken: request.csrfToken()
         });
     },
 
     processCreate(request, response) {
+        // Set correctness values
+        for (const question of request.body.questions) {
+            for (const option of question.options) {
+                if (option.correctness) {
+                    option.correctness = true;
+                } else {
+                    option.correctness = false;
+                }
+            }
+        }
         const {error} = Questionnaire.validateQuestionnaire(request.body);
+        let questionnaire = new Questionnaire;
         if (!error) {
-            const new_questionnaire = new Questionnaire();
-            new_questionnaire.title = request.body.title;
-            new_questionnaire.submissions = request.body.submissions;
-            new_questionnaire.save();
+            questionnaire.title = request.body.title;
+            questionnaire.submissions = request.body.submissions;
+            questionnaire.questions = request.body.questions;
+            questionnaire.save();
             response.redirect('/questionnaires');
         } else {
-            return response.render('questionnaire/add_questionnaire', {
-                errors: error
-            });
-        }
-    },
-
-    createQuestion(request, response) {
-        Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
-            response.render('questionnaire/add_question', {
-                new: true,
+            // Add empty question for a new question form
+            questionnaire.questions.push({options:Array(3).fill(null)});
+            return response.render('questionnaire/edit_questionnaire', {
                 questionnaire: questionnaire,
-                csrfToken: request.csrfToken()
-            });
-        });
-    },
-
-    processCreateQuestion(request, response) {
-        const {error} = Questionnaire.validateQuestion(request.body);
-        if (!error) {
-            Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
-                // questionnaire.title = request.body.title;
-                // questionnaire.submissions = request.body.submissions;
-                // questionnaire.save();
-                response.redirect(`/questionnaires/${questionnaire.id}`);
-            });
-        } else {
-            return response.render('questionnaire/add_question', {
+                csrfToken: request.csrfToken(),
                 errors: error
             });
         }
     },
-
     update(request, response) {
         Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
             // Add empty question for a new question form
             questionnaire.questions.push({options:Array(3).fill(null)});
-            console.log(questionnaire);
-            console.log(questionnaire.questions.slice(-1)[0]);
             response.render('questionnaire/edit_questionnaire', {
-                new: false,
                 questionnaire: questionnaire,
                 csrfToken: request.csrfToken()
             });
@@ -103,7 +91,6 @@ module.exports = {
                 // Add empty question for a new question form
                 questionnaire.questions.push({options:Array(3).fill(null)});
                 return response.render('questionnaire/edit_questionnaire', {
-                    new: false,
                     questionnaire: questionnaire,
                     csrfToken: request.csrfToken(),
                     errors: error
@@ -112,8 +99,20 @@ module.exports = {
         });
     },
 
-    delete(request, response) {},
-    processDelete(request, response) {},
+    delete(request, response) {
+        Questionnaire.findById(request.params.id).exec((err, questionnaire) => {
+            response.render('questionnaire/delete', {
+                title: questionnaire.title,
+                csrfToken: request.csrfToken()
+            });
+        });
+    },
+
+    processDelete(request, response) {
+        Questionnaire.findByIdAndDelete(request.params.id).exec((err, questionnaire) => {
+            response.redirect('/questionnaires');
+        });
+    },
 
     deleteQuestion(request, response) {
         Questionnaire.findById(request.params.id_questionnaire).exec((err, questionnaire) => {
@@ -123,22 +122,32 @@ module.exports = {
                     title = question.title;
                 }
             }
-
-            response.render('questionnaire/delete', {
-                title: title,
-                csrfToken: request.csrfToken()
-            });
+            if (questionnaire.questions.length > 1) {
+                response.render('questionnaire/delete', {
+                    title: title,
+                    csrfToken: request.csrfToken()
+                });
+            } else {
+                const error = ['Questionnaire must contain at least one question.'];
+                questionnaire.questions.push({options:Array(3).fill(null)});
+                response.render('questionnaire/edit_questionnaire', {
+                    questionnaire: questionnaire,
+                    csrfToken: request.csrfToken(),
+                    error: error
+                });
+            }
         });
     },
 
     processDeleteQuestion(request, response) {
         Questionnaire.findById(request.params.id_questionnaire).exec((err, questionnaire) => {
-            let title;
-            for (let i = 0; i < questionnaire.questions.length; i++) {
-                if (questionnaire.questions[i].id === request.params.id_question) {
-                    questionnaire.questions.splice(i,1);
-                    questionnaire.save();
-                    break;
+            if (questionnaire.questions.length > 1) {
+                for (let i = 0; i < questionnaire.questions.length; i++) {
+                    if (questionnaire.questions[i].id === request.params.id_question) {
+                        questionnaire.questions.splice(i,1);
+                        questionnaire.save();
+                        break;
+                    }
                 }
             }
             response.redirect('/questionnaires');

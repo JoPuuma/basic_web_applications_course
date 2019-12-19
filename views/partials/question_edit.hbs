@@ -2,14 +2,13 @@
     <div class="card-header">
         <input type="text" name="questions[{{index}}][title]" class="form-control"
             id="questions[{{index}}][title]"
-            {{#if (not new)}}value="{{question.title}}"{{/if}}
+            value="{{question.title}}" placeholder="Question"
             required>
         <div class="form-group row">
             <label for="submissions" class="col-sm-3 col-form-label">Max points</label>
             <input type="number" min="1" name="questions[{{index}}][maxPoints]"
                 class="col-sm-8 form-control" id="questions[{{index}}][maxPoints]"
-                {{#if (not new)}}value="{{question.maxPoints}}"{{/if}}
-                required>
+                value="{{question.maxPoints}}" required>
         </div>
     </div>
     <div class="card-body">
@@ -21,8 +20,7 @@
                     {{#if option.correctness}}checked {{/if}}>
                 <input type="text" name="questions[{{../index}}][options][{{index}}][option]"
                     class="option-text" id="questions[{{../index}}][options][{{index}}][option]"
-                    {{#if (not ../new)}}value="{{option.option}}"{{/if}}
-                    required>
+                    value="{{option.option}}" placeholder="Option {{add index 1}}" required>
             </li>
             {{/each}}
         </ul>

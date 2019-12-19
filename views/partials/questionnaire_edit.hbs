@@ -1,15 +1,14 @@
 <div class="card">
     <div class="card-header">
         <input type="text" name="title" class="form-control" id="title"
-            {{#if (not new)}}value="{{this.title}}"{{/if}}
+            value="{{this.title}}" placeholder="Questionnaire title"
             required>
     </div>
     <div class="card-body">
         <div class="form-group row">
             <label for="submissions" class="col-sm-2 col-form-label">Max submissions</label>
             <input type="number" min="1" name="submissions" class="col-sm-9 form-control" id="submissions"
-                {{#if (not new)}}value="{{this.submissions}}"{{/if}}
-                required>
+                value="{{this.submissions}}" required>
         </div>
     </div>
 </div>

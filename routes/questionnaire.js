@@ -19,10 +19,6 @@ router.get('/:id([a-f0-9]{24})', QuestionnaireController.show);
 router.get('/new', QuestionnaireController.create);
 router.post('/new', QuestionnaireController.processCreate);
 
-// Create a question
-router.get('/new/:id([a-f0-9]{24})', QuestionnaireController.createQuestion);
-router.post('/new/:id([a-f0-9]{24})', QuestionnaireController.processCreateQuestion);
-
 // Update a questionnaire
 router.get('/edit/:id([a-f0-9]{24})', QuestionnaireController.update);
 router.post('/edit/:id([a-f0-9]{24})', QuestionnaireController.processUpdate);
