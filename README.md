@@ -24,17 +24,19 @@ for high-school students, especially for the domains of mathematics and computer
 ├── index.js                --> bwa app
 ├── package.json            --> app info and dependencies
 ├── controllers             --> controllers (handle e.g. routing)
-│   ├──  ...                -->   ...
+│   ├──  game.js            --> game controller
 │   └── hello.js            --> the same as "minimal viable grader"
+    └──questionnaire.js     --> management to questions
 ├── models                  --> models that reflect the db schemes
-│                               and take care of storing data
+│                              and take care of storing data
 ├── public                  --> location for public (static) files
 │   ├── img                 --> for images
 │   ├── js                  --> for javascript
+        └──gameFile.js      --> game file
 │   └── css                 --> for styles
 ├── routes                  --> a dir for router modules
 │   ├── hello.js            --> / (root) router
-│   ├──  ...                -->   ...
+│   ├── game.js             --> game router
 │   └── users.js            --> /users router
 ├── views                   --> views - visible parts
 │   ├── error.hbs           --> error view
@@ -42,15 +44,15 @@ for high-school students, especially for the domains of mathematics and computer
 │   ├── layouts             --> layouts - handlebar concept
 │   │   └── layout.hbs      --> layout view, "template" to be rendered
 │   └── partials            --> smaller handlebar components to be included in views
+     └──multiple .hbs files --> different kind of pages in website
 └── test                    --> tests
-│   ├── assignment          --> TODO: your tests here
+│   ├── assignment
+         └──groupTests.js   --> group tests
 │   ├── integration         --> integration tests
 └── └── models              --> unit tests for models
 
 
 ```
-
-TODO: add your files here and give a short description
 
 ## Game
 
@@ -61,7 +63,11 @@ Ovien värit muuttuu lopussa joko vihreäksi tai punaiseksi, jotta oikea vastaus
 äänitehoste kuvastaa lisäksi menikö vastaus oikein.
 Kysymysten loputtua peli päättyy ja aukeaa ikkuna, jossa näkyy pelin lopputulos.
 
-"Create a short document that describes how your coursework handles these requirements." Ja erikseen maininta sitten että pitää selvittää miten se softa ajetaan.
+ miten se softa ajetaan:
+
+ 1. npm install
+ 2. npm start
+
 
 ## Management view
 
@@ -74,13 +80,22 @@ Lisäksi käyttäjä voidaan poistaa kokonaan tietokannasta.
 
 ## Tests and documentation
 
-TODO: describe your work
+testien saaminen toimimaan oli hankalaa, joten monet testit on tehty kommentti tasolla.
+testejä tehty controller/game.js funktioille.
 
 ## Security concerns
 
-TODO: list the security threats represented in the course slides.
-Document how your application protects against the threats.
-You are also free to add more security threats + protection here, if you will.
+lista turvallisuus uhkista:
+1. Cross-Site Scripting (XSS)
+2. Information Leakage
+3. Authentication and Authorization
+4. Session hijacking
+5. Session fixation
+
+suojaukset projektissa:
+salasanan tiiviste.
+Valmiita kurssipuolen suojauksia.
+csrf
 
 ---
 
