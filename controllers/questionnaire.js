@@ -1,6 +1,6 @@
 'use strict';
 
-const Questionnaire = require("../models/questionnaire");
+const Questionnaire = require('../models/questionnaire');
 
 module.exports = {
 
@@ -82,7 +82,7 @@ module.exports = {
 
     processUpdate(request, response) {
         for (const question of request.body.questions) {
-            for (let option of question.options) {
+            for (const option of question.options) {
                 if (option.correctness) {
                     option.correctness = true;
                 } else {
