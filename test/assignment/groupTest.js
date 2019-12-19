@@ -5,29 +5,29 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const http = require('http');
-const Browser = require('zombie');
+//const Browser = require('zombie');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
 const assert = require('assert');
 chai.use(chaiHttp);
 
 const app = require('../../app.js');
-const Game = require('../../public/js/gameFile.js');
+//const Game = require('../../public/js/gameFile.js');
 const GameController = require('../../controllers/game.js');
 //import {shuffle} from '../../public/js/gameFile.js';
-const shuffle = require('../../controllers/game.js').shuffle;
+//const Game = require('../../public/js/gameFile.js').shuffle;
 const port = 3000;
 
 describe('tests', function(){
 
-    const server = http.createServer(app).listen(port);
-    Browser.localhost('bwa', port);
-    const browser = new Browser();
-    let request;
+    // const server = http.createServer(app).listen(port);
+    // Browser.localhost('bwa', port);
+    // const browser = new Browser();
+     let request;
 
-    after(function(done) {
-        mongoose.disconnect(done);
-    });
+    // after(function(done) {
+    //     mongoose.disconnect(done);
+    // });
     this.beforeAll(function(done) {
         request = chai.request.agent(app);
         done();
@@ -89,7 +89,6 @@ describe('tests', function(){
     describe('gameFile', function(){
 
         it('shuffle: length', function(done){
-            console.log(shuffle);
             // let a,b,c;
             // let testArr = [a,b,c];
             // let resultArr = shuffle (testArr);
@@ -103,6 +102,6 @@ describe('tests', function(){
             // expect(testArr).to.equal(expect.arrayContaining(resultArr));
             done();
         });
-    });
+   });
 
 });
