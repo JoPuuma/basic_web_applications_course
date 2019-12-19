@@ -24,8 +24,16 @@ router.get('/new/:id([a-f0-9]{24})', QuestionnaireController.createQuestion);
 router.post('/new/:id([a-f0-9]{24})', QuestionnaireController.processCreateQuestion);
 
 // Update a questionnaire
-router.get('/edit/questionnaire/:id([a-f0-9]{24})', QuestionnaireController.updateQuestionnaire);
-router.post('/edit/questionnaire/:id([a-f0-9]{24})', QuestionnaireController.processUpdateQuestionnaire);
+router.use((request, response, next) => {
+    if (request.body.questions) {
+        console.log(request.body.questions[0]);
+    } else {
+        console.log(request.body);
+    }
+    next();
+});
+router.get('/edit/:id([a-f0-9]{24})', QuestionnaireController.update);
+router.post('/edit/:id([a-f0-9]{24})', QuestionnaireController.processUpdate);
 
 // Delete documents
 router.get('/delete/:id([a-f0-9]{24})', QuestionnaireController.delete);
