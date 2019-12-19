@@ -32,7 +32,8 @@ for high-school students, especially for the domains of mathematics and computer
 ├── public                  --> location for public (static) files
 │   ├── img                 --> for images
 │   ├── js                  --> for javascript
-        └──gameFile.js      --> game file
+        |──gameFile.js      --> game file
+        └──filterList.js    --> script for searching questionnaires
 │   └── css                 --> for styles
 ├── routes                  --> a dir for router modules
 │   ├── hello.js            --> / (root) router
@@ -56,8 +57,9 @@ for high-school students, especially for the domains of mathematics and computer
 
 ## Game
 
-Alku ikkunassa pelaaja valitsee, minkä tyyppisiä kysymyksiä peliin tulee. Vaihtoehdot näkyy niiden otsikoiden perusteella.
-Peli ikkunassa ylhäällä näkyy pelaajan pisteet reaaliajassa pelatessa. Kysymys näkyy peliruudun yläosassa. Peli aloitetaan 'start' napista ja loppuu automaattisesti kysymysten loppuessa. Kysymysvaihtoehdot näkyy pelilaudalla ovien sisällä.
+Alkuikkunassa pelaaja valitsee, minkä tyyppisiä kysymyksiä peliin tulee. Vaihtoehdot näkyvät kysymysten otsikoiden perusteella.
+Peli ikkunassa ylhäällä näkyy pelaajan pisteet reaaliajassa pelatessa. Kysymys näkyy peliruudun yläosassa. Peli aloitetaan 'start' napista ja loppuu automaattisesti kysymysten loppuessa. Kysymysvaihtoehdot näkyvät pelilaudalla ovien sisällä.
+
 Pelin kulku: tarkoituksena on asettaa pelihahmo oikean oven kohdalle (vastaus luetaan siitä missä hahmon keskiosa sijaitsee), joka tapahtuu hiirtä liikuttamalla sivusuunnassa.
 Ovien värit muuttuu lopussa joko vihreäksi tai punaiseksi, jotta oikea vastaus selviää pelaajalle välittömästi sekä
 äänitehoste kuvastaa lisäksi menikö vastaus oikein.
@@ -85,7 +87,7 @@ testejä tehty controller/game.js funktioille.
 
 ## Security concerns
 
-lista turvallisuus uhkista:
+lista turvallisuusuhkista:
 1. Cross-Site Scripting (XSS)
 2. Information Leakage
 3. Authentication and Authorization
