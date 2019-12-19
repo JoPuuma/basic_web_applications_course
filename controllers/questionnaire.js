@@ -1,6 +1,6 @@
 'use strict';
 
-const Questionnaire = require("../models/questionnaire");
+const Questionnaire = require('../models/questionnaire');
 
 module.exports = {
 
@@ -81,8 +81,9 @@ module.exports = {
     },
 
     processUpdate(request, response) {
+        // Set correctness values
         for (const question of request.body.questions) {
-            for (let option of question.options) {
+            for (const option of question.options) {
                 if (option.correctness) {
                     option.correctness = true;
                 } else {
@@ -112,5 +113,35 @@ module.exports = {
     },
 
     delete(request, response) {},
-    processDelete(request, response) {}
+    processDelete(request, response) {},
+
+    deleteQuestion(request, response) {
+        Questionnaire.findById(request.params.id_questionnaire).exec((err, questionnaire) => {
+            let title;
+            for (const question of questionnaire.questions) {
+                if (question.id === request.params.id_question) {
+                    title = question.title;
+                }
+            }
+
+            response.render('questionnaire/delete', {
+                title: title,
+                csrfToken: request.csrfToken()
+            });
+        });
+    },
+
+    processDeleteQuestion(request, response) {
+        Questionnaire.findById(request.params.id_questionnaire).exec((err, questionnaire) => {
+            let title;
+            for (let i = 0; i < questionnaire.questions.length; i++) {
+                if (questionnaire.questions[i].id === request.params.id_question) {
+                    questionnaire.questions.splice(i,1);
+                    questionnaire.save();
+                    break;
+                }
+            }
+            response.redirect('/questionnaires');
+        });
+    }
 };

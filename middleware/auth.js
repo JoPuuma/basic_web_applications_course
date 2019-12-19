@@ -24,7 +24,7 @@ module.exports = {
             request.flash(
                 'errorMessage',
                 'Admin rights required!'
-            )
+            );
             return response.redirect('/');
         }
 

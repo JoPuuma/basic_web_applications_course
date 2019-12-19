@@ -27,8 +27,12 @@ router.post('/new/:id([a-f0-9]{24})', QuestionnaireController.processCreateQuest
 router.get('/edit/:id([a-f0-9]{24})', QuestionnaireController.update);
 router.post('/edit/:id([a-f0-9]{24})', QuestionnaireController.processUpdate);
 
-// Delete documents
+// Delete a questionnaire
 router.get('/delete/:id([a-f0-9]{24})', QuestionnaireController.delete);
 router.post('/delete/:id([a-f0-9]{24})', QuestionnaireController.processDelete);
+
+// Delete a question
+router.get('/delete/:id_questionnaire([a-f0-9]{24})/:id_question([a-f0-9]{24})', QuestionnaireController.deleteQuestion);
+router.post('/delete/:id_questionnaire([a-f0-9]{24})/:id_question([a-f0-9]{24})', QuestionnaireController.processDeleteQuestion);
 
 module.exports = router;

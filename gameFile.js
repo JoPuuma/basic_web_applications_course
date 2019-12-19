@@ -9,7 +9,7 @@ async function loadGameData() {
         const gameData = await handleResponse(response);
         playNextRound(gameData.questions);
     } catch (error) {
-        handleError(error + " " + data_uri);
+        handleError(`${error  } ${  data_uri}`);
     }
 }
 
@@ -38,67 +38,67 @@ function destroyDoor(door) {
 }
 
 function getGameStarter(question){
-  const createDoor = getDoorCreator();
-  let counter = 0;
+    const createDoor = getDoorCreator();
+    const counter = 0;
 
-  return function() {
-    const intervalId = setInterval(function () {
-      if(false){
-        clearInterval(intervalId);
-        return;
-      };
-      let roundDoors = [];
+    return function() {
+        const intervalId = setInterval(function() {
+            if(false){
+                clearInterval(intervalId);
+                return;
+            }
+            const roundDoors = [];
 
-      for(i = 0; i < 3; i++){
-        const doorData = question.options[i];
-        roundDoors.push(createDoor(doorData));
-      };
-      dropDoors(roundDoors);
-    }, 5000);
-  };
+            for(i = 0; i < 3; i++){
+                const doorData = question.options[i];
+                roundDoors.push(createDoor(doorData));
+            }
+            dropDoors(roundDoors);
+        }, 5000);
+    };
 }
 
 function dropDoors(roundDoors){
-  const xPos = 100;
-  let yPos = 30;
-  doors = shuffle(roundDoors);
-  for(i = 1; i <= 3; i++){
-    doors[i-1].style.left = `${xPos * i}px`;
-    doors[i-1].style.left = `${yPos}px`;
-  };
+    const xPos = 100;
+    let yPos = 30;
+    doors = shuffle(roundDoors);
+    for(i = 1; i <= 3; i++){
+        doors[i-1].style.left = `${xPos * i}px`;
+        doors[i-1].style.left = `${yPos}px`;
+    }
 
-  moveId = setInterval(function() {
-    for(i = 0; i <= 2; i++){
-      doors[i].style.left = `${yPos}px`;
-      doors[i].style.display = 'block';
-    };
-      yPos += 1;
-
-      if (yPos > 600 || bubble.style.display === 'none') {
+    moveId = setInterval(function() {
         for(i = 0; i <= 2; i++){
-          destroyDoor(doors[i]);
-        };
-      }
-  }, 20);
+            doors[i].style.left = `${yPos}px`;
+            doors[i].style.display = 'block';
+        }
+        yPos += 1;
+
+        if (yPos > 600 || bubble.style.display === 'none') {
+            for(i = 0; i <= 2; i++){
+                destroyDoor(doors[i]);
+            }
+        }
+    }, 20);
 
 }
 
 function getDoorCreator(){
-  const doors = document.getElementById('doors');
+    const doors = document.getElementById('doors');
 
-  return function(doorData){
-    const doorDiv = document.createElement('div');
-    doorDiv.classList.add('door');
+    return function(doorData){
+        const doorDiv = document.createElement('div');
+        doorDiv.classList.add('door');
 
-    doorDiv.dataset.id = doorData.option;
-    //doorDiv.dataset.speech = doorData.text;
+        doorDiv.dataset.id = doorData.option;
+        //doorDiv.dataset.speech = doorData.text;
 
-    // hidden by default
-    doorDiv.style.display = 'none';
-    doorDiv.innerText = doorData.text;
-    doors.appendChild(doorDiv);
-    return doorDiv;
-  };
+        // hidden by default
+        doorDiv.style.display = 'none';
+        doorDiv.innerText = doorData.text;
+        doors.appendChild(doorDiv);
+        return doorDiv;
+    };
 }
 
 /**
@@ -106,7 +106,7 @@ function getDoorCreator(){
  * @param {Array} a items An array containing the items.
  */
 function shuffle(a) {
-    var j, x, i;
+    let j, x, i;
     for (i = a.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
         x = a[i];
@@ -150,7 +150,7 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
     questionTitle.classList.add('h3');
     questionTitle.classList.remove('hidden');
 
-    startButton.onclick = function (evt) {
+    startButton.onclick = function(evt) {
         // Activate and unhide submit button
         submitButton.disabled = false;
         submitButton.classList.remove('hidden');
@@ -167,14 +167,16 @@ function registerEventHandlers(questions, currentQuestion, submitOnGameStop = fa
         startGame();
     };
 
-    gameForm.onsubmit = function (evt) {
+    gameForm.onsubmit = function(evt) {
         if (submitOnGameStop) return;
 
         evt.preventDefault();
-        document.querySelectorAll('.door').forEach((bubble) => { destroyDoor(door) });
+        document.querySelectorAll('.door').forEach((bubble) => {
+            destroyDoor(door); 
+        });
         playNextRound(questions, currentQuestion + 1);
         return false;
-    }
+    };
 }
 
 async function handleResponse(response) {

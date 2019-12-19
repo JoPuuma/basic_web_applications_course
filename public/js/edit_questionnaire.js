@@ -6,7 +6,11 @@ $(document).ready(function() {
         const question_div = document.getElementById('questions_div').lastElementChild.lastElementChild;
         const inputs = question_div.getElementsByTagName('input');
         for (let input of inputs) {
-            input.setAttribute('required','');
+            // Don't require checkboxes
+            if (input.getAttribute('type') !== 'checkbox') {
+                input.setAttribute('required','');
+            }
+            input.removeAttribute('disabled');
         }
         add_new_question.setAttribute('hidden','');
         remove_new_question.removeAttribute('hidden');
@@ -19,6 +23,7 @@ $(document).ready(function() {
         const inputs = question_div.getElementsByTagName('input');
         for (let input of inputs) {
             input.removeAttribute('required');
+            input.setAttribute('disabled','');
             input.removeAttribute('value');
         }
         add_new_question.removeAttribute('hidden');
