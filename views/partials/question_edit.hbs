@@ -27,7 +27,7 @@
     </div>
     {{#if (not new_questionnaire)}}
     <div class="card-footer">
-        <a class="btn btn-danger" href="/questionnaires/delete/{{id_questionnaire}}/{{question.id}}">Remove question</a>
+        <a id = "btnRemove" class="btn btn-danger" href="/questionnaires/delete/{{id_questionnaire}}/{{question.id}}">Remove question</a>
     </div>
     {{/if}}
 </div>
