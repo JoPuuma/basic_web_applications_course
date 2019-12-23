@@ -69,12 +69,14 @@ describe('Authentication requirements', function() {
         await browser.pressButton('#btnLogin');
         browser.assert.success();
 
-        browser.assert.url({ pathname: '/users/me' });
+        // browser.assert.url({ pathname: '/users/me' });
+        browser.assert.url({ pathname: '/' });
     });
 
 
     it('By default, the role of the registered user is student', async function() {
         //Expecting that the first test passed:
+        await browser.visit('/users/me');  // student added this line
         browser.assert.text('.card-text', 'Role: student');
     });
 
