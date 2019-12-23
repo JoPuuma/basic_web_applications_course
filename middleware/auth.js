@@ -72,7 +72,7 @@ module.exports = {
                 'errorMessage',
                 'Modify your data through profile'
             );
-            return response.redirect('/users/me');
+            return response.redirect('/');
         }
 
         next();
@@ -82,6 +82,6 @@ module.exports = {
         if (!request.isAuthenticated()) {
             return next();
         }
-        response.redirect('/users/me');
+        response.redirect('/');
     }
 };
